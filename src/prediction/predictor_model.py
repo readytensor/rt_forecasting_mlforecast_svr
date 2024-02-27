@@ -99,6 +99,7 @@ class Forecaster:
                 degree=degree,
                 C=C,
                 **kwargs,
+                epsilon=0.01,
             )
         ]
 
