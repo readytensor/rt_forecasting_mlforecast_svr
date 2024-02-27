@@ -37,7 +37,6 @@ class Forecaster:
         kernel: str = "linear",
         degree: int = 3,
         C: float = 1.0,
-        epsilon: float = 0.01,
         use_exogenous: bool = True,
         random_state: int = 0,
         **kwargs,
@@ -68,11 +67,7 @@ class Forecaster:
 
             degree (int):
                 Degree of the polynomial kernel function ('poly'). Must be non-negative. Ignored by all other kernels.
-
-            epsilon (float):
-                Regularization parameter. The strength of the regularization is inversely proportional to C.
-                Must be strictly positive. The penalty is a squared l2 penalty.
-            
+   
             C (float):
                Epsilon in the epsilon-SVR model. It specifies the epsilon-tube within which no penalty
                is associated in the training loss function with points predicted within a distance
@@ -105,7 +100,6 @@ class Forecaster:
                 kernel=kernel,
                 degree=degree,
                 C=C,
-                epsilon=epsilon,
                 **kwargs,
             )
         ]
