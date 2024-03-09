@@ -112,17 +112,17 @@ def run_batch_predictions(
             logger.info("Loading predictor model...")
             predictor_model = load_predictor_model(predictor_dir_path)
 
-            logger.info("Making predictions...")
-        
+        logger.info("Making predictions...")
+        with TimeAndMemoryTracker(logger) as _:
             predictions = predict_with_model(
                 predictor_model,
                 validated_test_data,
                 model_config["prediction_field_name"],
-            )            
-            logger.info("Validating predictions...")
-            validated_predictions = validate_predictions(
-                predictions, data_schema, model_config["prediction_field_name"]
             )
+        logger.info("Validating predictions...")
+        validated_predictions = validate_predictions(
+            predictions, data_schema, model_config["prediction_field_name"]
+        )
 
         logger.info("Saving predictions...")
         save_dataframe_as_csv(
