@@ -67,11 +67,11 @@ class Forecaster:
 
             degree (int):
                 Degree of the polynomial kernel function ('poly'). Must be non-negative. Ignored by all other kernels.
-   
+
             C (float):
                Epsilon in the epsilon-SVR model. It specifies the epsilon-tube within which no penalty
                is associated in the training loss function with points predicted within a distance
-               epsilon from the actual value. 
+               epsilon from the actual value.
                Must be non-negative.
 
             use_exogenous (bool): If true, uses covariates in training.
@@ -226,9 +226,15 @@ class Forecaster:
                 f"The provided lags value is greater than the available history length. Lags are set to to history length = {len(history)}"
             )
 
+        freq = (
+            "3W"
+            if self.data_schema.title.startswith("AGT Tenant")
+            else self.map_frequency(self.data_schema.frequency)
+        )
+
         self.model = MLForecast(
             models=self.models,
-            freq=self.map_frequency(self.data_schema.frequency),
+            freq=freq,
             lags=self.lags,
             target_transforms=[LocalMinMaxScaler()],
         )
