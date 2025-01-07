@@ -227,7 +227,7 @@ class Forecaster:
             )
 
         freq = (
-            "3W"
+            "15T"
             if self.data_schema.title.startswith("AGT Tenant")
             else self.map_frequency(self.data_schema.frequency)
         )
